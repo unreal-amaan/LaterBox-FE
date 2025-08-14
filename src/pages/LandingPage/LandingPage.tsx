@@ -7,17 +7,17 @@ import ProblemStatement from "./ProblemStatement/ProblemStatement";
 import Solution from "./Solution/Solution";
 
 const LandingPage = () => {
-    return (
-        <div className="h-screen w-full">
-            <Nav />
-            <Hero />
-            <ProblemStatement />
-            <Solution />
-            <Features />
-            <WorkFlow />
-            <Cta />
-        </div>
-    );
+  return (
+    <div className="h-screen w-full">
+      <Nav />
+      <Hero />
+      <ProblemStatement />
+      <Solution />
+      <Features />
+      <WorkFlow />
+      <Cta />
+    </div>
+  );
 };
 
 export default LandingPage;

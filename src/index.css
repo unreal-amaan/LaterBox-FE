@@ -1,68 +1,63 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+    --color-primary: #474448;
+    --color-secondary: #2d232e;
+    --color-muted: #534b52;
+    --color-accent: #e0ddcf;
+    --color-light: #f1f0ea;
+    --font-rum-raisin: "Rum Raisin", sans-serif; /*Logo*/
+    --font-sora: "Sora", sans-serif; /*Heading */
+    --font-inter: "Inter", sans-serif; /*Sub-Heading-1*/
+    --font-work-sans: "Work Sans", sans-serif; /*Sub-Heading-2*/
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.glass-effect-dark {
+    background: rgba(45, 35, 46, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(83, 75, 82, 0.3);
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    @apply scroll-smooth;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+* {
+    scrollbar-width: none;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@utility bg-gradient-light {
+    background: linear-gradient(135deg, #f1f0ea 0%, #e0ddcf 100%);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@utility bg-gradient-dark {
+    background: linear-gradient(135deg, #2d232e 0%, #474448 100%);
 }
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(224, 221, 207, 0.1);
+}
+
+.google-btn {
+    transition: all 0.2s ease;
+}
+
+.google-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.theme-transition {
+    transition: all 0.3s ease-in-out;
+}
+

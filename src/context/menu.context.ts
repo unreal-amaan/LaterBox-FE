@@ -6,3 +6,4 @@ export const menuState = atom<boolean>({
     default: false,
     effects_UNSTABLE: [persistAtom],
 });
+

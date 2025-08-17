@@ -13,14 +13,38 @@
     --font-inter: "Inter", sans-serif; /*Sub-Heading-1*/
     --font-work-sans: "Work Sans", sans-serif; /*Sub-Heading-2*/
 }
+
+.animate-scroll {
+    animation: scroll 20s linear infinite;
+}
+
+.animate-scroll:hover {
+    animation-play-state: paused;
+}
+
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+} 
+
+
 .glass-effect-dark {
     background: rgba(45, 35, 46, 0.8);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(83, 75, 82, 0.3);
 }
 
+html {
+    @apply scroll-pt-20 sm:scroll-pt-22
+}
+
 body {
-    @apply scroll-smooth;
+    @apply scroll-smooth ;
 }
 
 * {

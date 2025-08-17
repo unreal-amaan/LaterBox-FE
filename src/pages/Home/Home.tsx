@@ -1,0 +1,29 @@
+import { api } from "../../api/api";
+import Nav from "./Nav";
+import { useState } from "react";
+const Home = () => {
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const res:any = await api.get("/category/get");
+      console.log(res);
+      setCategories(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  return (
+    <div>
+      <Nav />
+      <button
+        className="bg-primary dark:bg-light text-accent dark:text-secondary border-1 border-red-600 text-lg"
+        onClick={fetchCategories}
+      >
+        Fetch
+      </button>
+      <div>{categories.map((category: any) => category.title)}</div>
+    </div>
+  );
+};
+
+export default Home;

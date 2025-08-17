@@ -1,4 +1,4 @@
-import { themeState } from "../context/Theme.context";
+import { themeState } from "../context/global.context";
 import { useRecoilState } from "recoil";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 const ThemeToggle = () => {

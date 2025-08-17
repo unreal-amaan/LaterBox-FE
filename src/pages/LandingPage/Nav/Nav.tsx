@@ -5,13 +5,10 @@ import MobileNav from "./MobileNav";
 const Nav = () => {
   return (
     <div className="h-20 sm:h-22">
-      <nav className="bg-light/95 dark:bg-secondary/95 dark:border-accent/20 border-primary/20 fixed top-0 z-50 w-screen border-b shadow-xl backdrop-blur-sm">
+      <nav className="bg-light/95 theme-transition dark:bg-secondary/95 dark:border-accent/20 border-primary/20 fixed top-0 z-50 w-screen border-b shadow-xl backdrop-blur-sm">
         <div className="mx-auto px-4 md:px-6">
           <div className="flex h-20 items-center justify-between sm:h-22">
-            <a
-              href="#hero"
-              className="flex items-center justify-center space-x-2"
-            >
+            <a href="#" className="flex items-center justify-center space-x-2">
               <div className="bg-secondary dark:bg-light flex h-10 w-10 items-center justify-center rounded-xl shadow-lg">
                 <span className="font-rum-raisin text-light dark:text-primary text-xl font-extrabold">
                   L

@@ -5,6 +5,7 @@ import WorkFlow from "./HowItWorks/WorkFlow";
 import Nav from "./Nav/Nav";
 import ProblemStatement from "./ProblemStatement/ProblemStatement";
 import Solution from "./Solution/Solution";
+import Testimonial from "./Testimonial/Testimonial";
 
 const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ const LandingPage = () => {
       <Solution />
       <Features />
       <WorkFlow />
+      <Testimonial/>
       <Cta />
     </div>
   );

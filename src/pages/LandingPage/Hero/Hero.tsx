@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <section
-      id="hero"
+      id=""
       className="bg-gradient-dark font-inter mx-auto w-full py-20 text-center"
     >
       <h1 className="text-light mb-4 text-4xl font-bold md:text-7xl">

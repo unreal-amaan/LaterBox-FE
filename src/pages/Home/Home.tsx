@@ -4,13 +4,9 @@ import { useState } from "react";
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
-    try {
-      const res:any = await api.get("/category/get");
-      console.log(res);
-      setCategories(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const res: any = await api.get("/category/get");
+    console.log(res);
+    setCategories(res.data);
   };
   return (
     <div>

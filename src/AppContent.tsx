@@ -14,7 +14,6 @@ const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 const Home = lazy(() => import("./pages/Home/Home"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoute/ProtectedRoute"));
-const Loader = lazy(() => import("./Loader/Loader"));
 
 export default function AppContent() {
   const theme = useRecoilValue(themeState);

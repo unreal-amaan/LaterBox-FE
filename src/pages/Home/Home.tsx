@@ -1,25 +1,14 @@
-import { api } from "../../api/api";
+import Main from "./Main";
 import Nav from "./Nav";
-import { useState } from "react";
 import Top from "./Top";
 const Home = () => {
-  const [categories, setCategories] = useState([]);
-  const fetchCategories = async () => {
-    const res: any = await api.get("/category/get");
-    console.log(res);
-    setCategories(res.data);
-  };
   return (
-    <div>
+    <div className="bg-gradient-light dark:bg-gradient-dark theme-transition min-h-screen transition-colors">
       <Nav />
-      <Top/>
-      <button
-        className="bg-primary dark:bg-light text-accent dark:text-secondary border-1 border-red-600 text-lg"
-        onClick={fetchCategories}
-      >
-        Fetch
-      </button>
-      <div>{categories.map((category: any) => category.title)}</div>
+      <div className="px-6 pt-6 sm:px-10 md:px-18">
+        <Top />
+      </div>
+
     </div>
   );
 };

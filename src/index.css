@@ -14,6 +14,15 @@
     --font-work-sans: "Work Sans", sans-serif; /*Sub-Heading-2*/
 }
 
+@utility bg-gradient-light {
+    background: linear-gradient(135deg, #f1f0ea 0%, #e0ddcf 100%);
+}
+
+@utility bg-gradient-dark {
+    background: linear-gradient(135deg, #2d232e 0%, #474448 100%);
+}
+
+
 .animate-scroll {
     animation: scroll 20s linear infinite;
 }
@@ -51,13 +60,6 @@ body {
     scrollbar-width: none;
 }
 
-@utility bg-gradient-light {
-    background: linear-gradient(135deg, #f1f0ea 0%, #e0ddcf 100%);
-}
-
-@utility bg-gradient-dark {
-    background: linear-gradient(135deg, #2d232e 0%, #474448 100%);
-}
 
 .card-hover {
     transition: all 0.3s ease;

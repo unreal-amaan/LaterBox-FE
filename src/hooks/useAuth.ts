@@ -10,13 +10,13 @@ export const useAuth = () => {
   const checkAuth = async () => {
     setLoading(true);
     try {
-      console.log("Checking authentication status...");
+      // console.log("Checking authentication status...");
       await authApi.post("/auth/refreshtoken");
-        console.log("User Authenticated");
+        // console.log("User Authenticated");
       setAuth(true);
     } catch (error:any) {
         setAuth(false);
-        console.error("Error checking authentication:", error);
+        // console.error("Error checking authentication:", error);
     } finally {
       setLoading(false);
     }
@@ -26,10 +26,10 @@ export const useAuth = () => {
     setLoading(true);
     try {
       await authApi.post("/auth/signout");
-      console.log("Logout successful");
+      // console.log("Logout successful");
       setAuth(false);
     } catch (error) {
-      console.error("Logout failed:", error);
+      // console.error("Logout failed:", error);
     } finally {
       setLoading(false);
     }

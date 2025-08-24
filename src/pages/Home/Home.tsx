@@ -1,6 +1,7 @@
 import { api } from "../../api/api";
 import Nav from "./Nav";
 import { useState } from "react";
+import Top from "./Top";
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
@@ -11,6 +12,7 @@ const Home = () => {
   return (
     <div>
       <Nav />
+      <Top/>
       <button
         className="bg-primary dark:bg-light text-accent dark:text-secondary border-1 border-red-600 text-lg"
         onClick={fetchCategories}

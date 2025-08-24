@@ -43,7 +43,7 @@ export default function AppContent() {
 
   return (
     <div className="h-screen w-screen">
-      <Suspense fallback={<Loader />}>
+      <Suspense >
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<LandingPage />} />

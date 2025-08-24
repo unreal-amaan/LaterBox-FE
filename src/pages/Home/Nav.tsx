@@ -1,4 +1,4 @@
-import { GoSignOut } from "react-icons/go";
+import { LuLogOut } from "react-icons/lu";
 
 import ThemeToggle from "../../components/ThemeToggle";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,30 +10,24 @@ const Nav = () => {
         <div className="mx-auto px-4 md:px-6">
           <div className="flex h-20 items-center justify-between sm:h-22">
             <a href="#" className="flex items-center justify-center space-x-2">
-              <div className="bg-secondary dark:bg-light flex h-8 w-8 items-center justify-center rounded-lg shadow-lg sm:h-10 sm:w-10 sm:rounded-xl">
-                <span className="font-rum-raisin text-light dark:text-primary text-xl font-extrabold sm:text-2xl">
+              <div className="bg-secondary dark:bg-light flex h-10 w-10 items-center justify-center rounded-xl shadow-lg sm:rounded-xl">
+                <span className="font-rum-raisin text-light dark:text-primary text-2xl font-extrabold ">
                   L
                 </span>
               </div>
-              <span className="font-sora text-primary dark:text-light text-xl font-bold sm:text-2xl">
+              <span className="font-sora text-primary dark:text-light text-2xl font-bold ">
                 LaterBox
               </span>
             </a>
-            <div>
-              <input
-                type="text"
-                placeholder="Search Categories..."
-                className="dark:bg-secondary bg-light dark:placeholder:text-accent placeholder:text-primary placeholder:font-work-sans border-primary dark:text-accent text-primary ,d:pl-4 sm:placeholder:text-md w-33 rounded-lg border-1 py-2 pl-1 placeholder:text-xs sm:pl-2 md:w-80 md:placeholder:text-lg"
-              />
-            </div>
+
             <div className="flex items-center gap-3">
               <ThemeToggle />
-              <div className="bg-secondary dark:bg-light flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg shadow-lg sm:h-10 sm:w-10 sm:rounded-xl">
+              <div className="bg-secondary dark:bg-light flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl shadow-lg">
                 <button
                   onClick={logout}
-                  className="font-rum-raisin text-light dark:text-primary cursor-pointer text-xl font-extrabold sm:text-2xl"
+                  className="font-rum-raisin text-light dark:text-primary cursor-pointer text-2xl font-bold"
                 >
-                  <GoSignOut />
+                  <LuLogOut />
                 </button>
               </div>
             </div>

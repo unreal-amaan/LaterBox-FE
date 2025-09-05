@@ -67,12 +67,12 @@ body {
 
 .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .dark .card-hover:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(224, 221, 207, 0.1);
+    box-shadow: 0 10px 20px rgba(224, 221, 207, 0.1);
 }
 
 .google-btn {

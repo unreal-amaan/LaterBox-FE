@@ -1,4 +1,6 @@
 import { useCategories } from "../../hooks/useCategories"
+import type { Category } from "../../types";
+import Card from "./Card";
 const Main = () => {
   const { getcategories, addCategory, deleteCategory, updateCategory } = useCategories();
   const { data, isLoading, isError } = getcategories;
@@ -9,17 +11,21 @@ const Main = () => {
   if(isError) {
     return <div>Error loading categories</div>
   }else  return (
-    <div>
-      {data?.map((category) => (
-        <div key={category.id}>
-          <h2>{category.title}</h2>
-          <h3>{category.created_at}</h3>
-          <p>Count: {category.count}</p>
-          <p>Pinned: {category.isPinned ? "Yes" : "No"}</p>
-          <p>Public: {category.isPublic ? "Yes" : "No"}</p>
-          <p>Share Link: {category.shareLink ? category.shareLink : "N/A"}</p>
-        </div>
-      ))}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        data?.length === 0 ? (
+          <div className="flex flex-col items-center justify-center">
+            <h2 className="text-2xl font-bold mb-4">No Categories Found</h2>
+            <p className="text-gray-600">You haven't added any categories yet.</p>
+          </div>
+        ) : (
+            data?.map((category:Category) => {
+              return (
+                <Card category={category} key={category.id}/>
+              )
+            })
+        )
+      }
     </div>
   )
 }

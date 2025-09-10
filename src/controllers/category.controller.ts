@@ -1,13 +1,13 @@
 import { api } from "../api/api";
-import { type Category } from "../types";
+import { type Category, type NewCategory } from "../types";
 class CategoryController {
   static async getCategories() {
     const response = await api.get<Category[]>("/category/get");
     return response.data;
   }
 
-  static async addCategory() {
-    const response = await api.post("/category/add");
+  static async addCategory(data:NewCategory) {
+    const response = await api.post("/category/add", data);
     return response.data;
   }
 

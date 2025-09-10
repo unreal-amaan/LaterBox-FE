@@ -22,6 +22,24 @@
     background: linear-gradient(135deg, #2d232e 0%, #474448 100%);
 }
 
+.icon-hover{
+    transition: all 0.2s ease-in-out;
+    padding: 4px;
+    border-radius: 100%;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.icon-hover:hover{
+    color: var(--color-accent);
+    background: var(--color-primary);
+    transform: scale(1.1);
+}
+.dark .icon-hover:hover{
+    color: var(--color-primary);
+    background: var(--color-accent);
+    transform: scale(1.1);
+}
 
 .animate-scroll {
     animation: scroll 20s linear infinite;
@@ -86,4 +104,5 @@ body {
 .theme-transition {
     transition: all 0.3s ease-in-out;
 }
+
 

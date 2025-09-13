@@ -9,7 +9,7 @@ export const themeState = atom({
 
 export const isLoadingState = atom<boolean>({
   key: "isLoading",
-  default: true,
+  default: false,
 });
 
 export const authState = atom<boolean | null>({

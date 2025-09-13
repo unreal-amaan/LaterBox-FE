@@ -3,22 +3,29 @@ import { HiSearch } from "react-icons/hi";
 import useAutoComplete from "../hooks/useAutoComplete";
 import { suggestions, selectedIndex } from "../context/autoComplete.context";
 import type { Option } from "../context/autoComplete.context";
-
 type AutoCompleteProps = {
   options: Option[];
   onChange: (value: Option) => void;
   placeholder?: string | "Search...";
+  type: "category" | "link";
 };
-
 export default function AutoComplete({
   options,
   onChange,
   placeholder,
+  type,
 }: AutoCompleteProps) {
-  const { bindInput, bindOptions, bindOption } = useAutoComplete({
+  const { bindInput, bindOptions, bindOption, clearInput } = useAutoComplete({
     onChange,
-    source: (search) =>
-      options.filter((opt) => new RegExp(search, "i").test(opt.label)),
+    source: (search) => {
+      if (type === "category") {
+        return options.filter((opt) => new RegExp(search, "i").test(opt.label));
+      } else {
+        return search
+          ? options.filter((opt) => new RegExp(search, "i").test(opt.label))
+          : options;
+      }
+    },
   });
 
   const suggestedOptions = useRecoilValue(suggestions);
@@ -47,6 +54,14 @@ export default function AutoComplete({
                 index === i ? "bg-accent/70" : ""
               }`}
               {...bindOption}
+              onClick={() => {
+                if (type === "category") {
+                  window.open(`/category/${s.value}`, "_blank");
+                  clearInput();
+                } else {
+                  onChange(s);
+                }
+              }}
             >
               <span className="font-inter text-primary font-medium">
                 {s.label}

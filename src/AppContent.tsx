@@ -4,12 +4,14 @@ import { useEffect, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 //Context
-import { themeState, authState } from "./context/global.context";
+import { themeState, authState, isLoadingState } from "./context/global.context";
 
 //hooks
 import { useAuth } from "./hooks/useAuth";
 
 //Components
+import Loader from "./components/Loader";
+
 const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -18,9 +20,11 @@ const ProtectedRoute = lazy(() => import("./ProtectedRoute/ProtectedRoute"));
 export default function AppContent() {
   const theme = useRecoilValue(themeState);
   const isAuthenticated = useRecoilValue(authState);
+  const isLoading = useRecoilValue(isLoadingState);
   const navigate = useNavigate();
   const location = useLocation();
   const { checkAuth } = useAuth();
+  
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -40,9 +44,24 @@ export default function AppContent() {
     }
   }, [isAuthenticated, location.pathname, navigate]);
 
+  // Show loading screen while checking authentication
+  if (isLoading || isAuthenticated === null) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-gradient-light dark:bg-gradient-dark">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen w-screen">
-      <Suspense >
+      <Suspense
+        fallback={
+          <div className="bg-gradient-light dark:bg-gradient-dark flex h-screen w-screen items-center justify-center">
+            <Loader />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<LandingPage />} />

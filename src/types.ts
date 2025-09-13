@@ -11,8 +11,16 @@ export type Category = {
 
 export type NewCategory = {
   title: string;
-  description?: string;
+  description?: string | null;
   created_at: string;
+  isPinned?: boolean;
+  isPublic?: boolean;
+};
+
+export type UpdateCategory = {
+  id: string;
+  title?: string;
+  description?: string;
   isPinned?: boolean;
   isPublic?: boolean;
 };

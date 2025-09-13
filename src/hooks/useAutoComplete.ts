@@ -100,6 +100,10 @@ export default function useAutoComplete({
     },
     bindOptions: {
       ref: listRef,
+    },
+    clearInput: () => {
+      setTextValue("");
+      clearSuggestions();
     }
   };
 }

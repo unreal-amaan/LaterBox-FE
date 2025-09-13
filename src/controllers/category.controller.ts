@@ -1,5 +1,5 @@
 import { api } from "../api/api";
-import { type Category, type NewCategory } from "../types";
+import { type Category, type NewCategory, type UpdateCategory } from "../types";
 class CategoryController {
   static async getCategories() {
     const response = await api.get<Category[]>("/category/get");
@@ -11,14 +11,14 @@ class CategoryController {
     return response.data;
   }
 
-  static async deleteCategory(categoryId: any) {
+  static async deleteCategory(categoryId: string) {
     const response = await api.delete(`/category/delete/${categoryId}`);
     return response.data;
   }
 
-  static async updateCategory(categoryId: any, categoryData: any) {
+  static async updateCategory({id , ...categoryData} :UpdateCategory) {
     const response = await api.put(
-      `/category/update/${categoryId}`,
+      `/category/update/${id}`,
       categoryData,
     );
     return response.data;

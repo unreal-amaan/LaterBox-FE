@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { TbEdit } from "react-icons/tb";
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import { RiShareForwardLine } from "react-icons/ri";
-import { TiPin } from "react-icons/ti";
+import { lazy } from "react";
 
+const EditCategoryModal = lazy(
+  () => import("./categoryOperationModals/editModal"),
+);
+const ShareModal = lazy(() => import("./categoryOperationModals/shareModal"));
+const DeleteCategoryModal = lazy(
+  () => import("./categoryOperationModals/deleteModal"),
+);
 import type { Category } from "../../types";
 const Card = ({ category }: { category: Category }) => {
   function formatDate(isoDate: string): string {
@@ -26,26 +30,20 @@ const Card = ({ category }: { category: Category }) => {
     <div className="card-hover hover:card-hover border-l-secondary dark:border-l-accent/80 bg-light/50 dark:bg-secondary theme-transition text-secondary dark:text-accent rounded-lg border-l-5 px-6 py-8 shadow-lg">
       <div className="mb-4 flex items-center justify-between space-x-2">
         <h2 className="font-sora max-w-[70%] space-y-4 text-xl font-medium break-words">
-          {category.isPinned && <TiPin className="" />}
           <span>{category.title}</span>
         </h2>
         <div className="flex flex-shrink-0 items-center space-x-2">
-          <TbEdit className="icon-hover dark:icon-hover" title="Edit" />
+          <EditCategoryModal category={category} />
           <a
             onClick={handleShareClick}
             style={{ cursor: category.isPublic ? "pointer" : "not-allowed" }}
           >
-            <RiShareForwardLine
-              className={`${!category.isPublic ? "text-gray-400" : "icon-hover dark:icon-hover"}`}
-              title={
-                category.isPublic ? "Share" : "Make category public to share"
-              }
+            <ShareModal
+              isPublic={category.isPublic}
+              link={category.shareLink ?? ""}
             />
           </a>
-          <MdOutlineDeleteOutline
-            className="icon-hover dark:icon-hover"
-            title="Delete"
-          />
+          <DeleteCategoryModal category={category} />
         </div>
       </div>
       {category.description && (

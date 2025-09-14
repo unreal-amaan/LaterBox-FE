@@ -10,7 +10,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
+import Loader from "@/components/Loader";
 
 import { useCategories } from "@/hooks/useCategories";
 import type { NewCategory } from "@/types";
@@ -33,7 +33,7 @@ const AddCategoryModal = () => {
   });
 
     const { addCategory } = useCategories();
-    const { mutate } = addCategory;
+    const { mutate, isPending } = addCategory;
     const onSubmit = (data: NewCategory) => {
         const date = new Date();
         data.created_at = date.toISOString();
@@ -64,10 +64,15 @@ const AddCategoryModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-4"
-        >
+        {isPending ? (
+          <div className="flex h-32 items-center justify-center">
+            <Loader size="sm" />
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-4 flex flex-col gap-4"
+          >
           <div className="flex flex-col">
             <label className="font-inter font-semibold">Title *</label>
             <input
@@ -121,12 +126,14 @@ const AddCategoryModal = () => {
             </DialogClose>
             <Button
               type="submit"
-              className="bg-secondary hover:bg-primary text-light cursor-pointer border-1 border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent"
+              disabled={isPending}
+              className="bg-secondary hover:bg-primary text-light cursor-pointer border-1 border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent disabled:opacity-50"
             >
-              Add
+              {isPending ? "Adding..." : "Add"}
             </Button>
           </DialogFooter>
         </form>
+        )}
       </DialogContent>
     </Dialog>
   );

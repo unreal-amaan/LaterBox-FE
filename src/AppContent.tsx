@@ -4,7 +4,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 //Context
-import { themeState, authState, isLoadingState } from "./context/global.context";
+import { themeState, authState } from "./context/global.context";
 
 //hooks
 import { useAuth } from "./hooks/useAuth";
@@ -20,7 +20,6 @@ const ProtectedRoute = lazy(() => import("./ProtectedRoute/ProtectedRoute"));
 export default function AppContent() {
   const theme = useRecoilValue(themeState);
   const isAuthenticated = useRecoilValue(authState);
-  const isLoading = useRecoilValue(isLoadingState);
   const navigate = useNavigate();
   const location = useLocation();
   const { checkAuth } = useAuth();
@@ -44,11 +43,10 @@ export default function AppContent() {
     }
   }, [isAuthenticated, location.pathname, navigate]);
 
-  // Show loading screen while checking authentication
-  if (isLoading || isAuthenticated === null) {
+  if (isAuthenticated === null) {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-gradient-light dark:bg-gradient-dark">
-        <Loader />
+        <Loader fullScreen />
       </div>
     );
   }
@@ -58,7 +56,7 @@ export default function AppContent() {
       <Suspense
         fallback={
           <div className="bg-gradient-light dark:bg-gradient-dark flex h-screen w-screen items-center justify-center">
-            <Loader />
+            <Loader fullScreen />
           </div>
         }
       >

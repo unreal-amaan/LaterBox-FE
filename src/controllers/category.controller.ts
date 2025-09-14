@@ -6,18 +6,18 @@ class CategoryController {
     return response.data;
   }
 
-  static async addCategory(data:NewCategory) {
-    const response = await api.post("/category/add", data);
+  static async addCategory(data:NewCategory): Promise<Category> {
+    const response = await api.post<Category>("/category/add", data);
     return response.data;
   }
 
-  static async deleteCategory(categoryId: string) {
-    const response = await api.delete(`/category/delete/${categoryId}`);
+  static async deleteCategory(categoryId: string): Promise<Category> {
+    const response = await api.delete<Category>(`/category/delete/${categoryId}`);
     return response.data;
   }
 
-  static async updateCategory({id , ...categoryData} :UpdateCategory) {
-    const response = await api.put(
+  static async updateCategory({id , ...categoryData} :UpdateCategory): Promise<Category> {
+    const response = await api.put<Category>(
       `/category/update/${id}`,
       categoryData,
     );

@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import CategoryController from "../controllers/category.controller";
+import type { Category } from "@/types";
 
 export const useCategories = () => {
   const queryClient = useQueryClient();
@@ -11,7 +12,7 @@ export const useCategories = () => {
     queryFn: CategoryController.getCategories,
     staleTime: 1000 * 60 * 10,
     refetchOnMount: false,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     retry: 0,
   });
 
@@ -19,12 +20,17 @@ export const useCategories = () => {
     mutationKey: ["addCategory"],
     mutationFn: CategoryController.addCategory,
     retry: 0,
-    onSuccess: () => {
+    onSuccess: (newCategory) => {
       toast.success("Category added successfully", {
         style: {
           background: "#22c55e",
         },
       });
+
+      queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
+        return oldCategories ? [newCategory, ...oldCategories] : [newCategory];
+      });
+
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: () => {
@@ -33,18 +39,23 @@ export const useCategories = () => {
           background: "#ef4444",
         },
       });
-    }
+    },
   });
 
   const deleteCategory = useMutation({
     mutationKey: ["deleteCategory"],
     mutationFn: CategoryController.deleteCategory,
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       toast.success("Category deleted successfully", {
         style: {
           background: "#22c55e",
         },
       });
+
+      queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
+        return oldCategories? oldCategories.filter((c) => c.id !== id) : [];
+      });
+
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: () => {
@@ -53,18 +64,28 @@ export const useCategories = () => {
           background: "#ef4444",
         },
       });
-    }
+    },
   });
 
   const updateCategory = useMutation({
     mutationKey: ["updateCategory"],
     mutationFn: CategoryController.updateCategory,
-    onSuccess: () => {
+    onSuccess: (updatedCategory) => {
       toast.success("Category updated successfully", {
         style: {
           background: "#22c55e",
         },
       });
+
+      queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
+        return oldCategories?.map((c) => {
+          if (c.id === updatedCategory.id) {
+            return updatedCategory;
+          }
+          return c;
+        });
+      });
+
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: () => {
@@ -73,7 +94,7 @@ export const useCategories = () => {
           background: "#ef4444",
         },
       });
-    }
+    },
   });
 
   return {

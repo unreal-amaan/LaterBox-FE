@@ -5,19 +5,27 @@ import { useCategories } from "../../hooks/useCategories";
 import type { Category } from "../../types";
 import Card from "./Card";
 import Top from "./Top";
-
-
 const Main = () => {
   const { getcategories } = useCategories();
   const { data, isLoading, isError } = getcategories;
 
+  
   const pinned = data?.filter((c: Category) => c.isPinned) ?? [];
   const unpinned = data?.filter((c: Category) => !c.isPinned) ?? [];
   const options =
     data?.map((c: Category) => ({ label: c.title, value: c.id })) ?? [];
 
-  if (isLoading) return <Loader />;
-  if (isError) return toast.error("Failed to load categories.");
+  if (isLoading) return (
+    <div className="py-6">
+      <div className="mb-8">
+        <Top options={options} />
+      </div>
+      <div className="flex h-[60vh] items-center justify-center">
+        <Loader />
+      </div>
+    </div>
+  );
+  if (isError) return toast.error("Failed to load categories.", { style: { background: "#ef4444" } });
   if (!data?.length)
     return (
       <div className="py-6">        

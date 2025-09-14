@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import Loader from "@/components/Loader";
 import { useCategories } from "@/hooks/useCategories";
 import type { Category } from "@/types";
 
 const DeleteCategoryModal = ({ category }: { category: Category }) => {
   const { deleteCategory } = useCategories();
-  const { mutate } = deleteCategory;
+  const { mutate, isPending } = deleteCategory;
 
   const handleDelete = () => {
     mutate(category.id);
@@ -45,7 +46,12 @@ const DeleteCategoryModal = ({ category }: { category: Category }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="font-inter text-md font-semibold">
+        {isPending ? (
+          <div className="flex h-20 items-center justify-center">
+            <Loader size="sm" />
+          </div>
+        ) : (
+          <DialogFooter className="font-inter text-md font-semibold">
           <DialogClose asChild>
             <Button
               variant="outline"
@@ -57,12 +63,14 @@ const DeleteCategoryModal = ({ category }: { category: Category }) => {
           <DialogClose asChild>
             <Button
               onClick={handleDelete}
-              className="text-light dark:text-light cursor-pointer border-1 border-red-700 bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+              disabled={isPending}
+              className="text-light dark:text-light cursor-pointer border-1 border-red-700 bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 disabled:opacity-50"
             >
-              Delete
+              {isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogClose>
         </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

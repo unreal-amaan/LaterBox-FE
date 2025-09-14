@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { TbEdit } from "react-icons/tb";
+import Loader from "@/components/Loader";
 
 import { useCategories } from "@/hooks/useCategories";
 import type { Category, UpdateCategory } from "@/types";
@@ -32,7 +33,7 @@ const EditCategoryModal = ({ category }: { category: Category }) => {
   });
 
   const { updateCategory } = useCategories();
-  const { mutate } = updateCategory;
+  const { mutate, isPending } = updateCategory;
 
   const onSubmit = (data: UpdateCategory) => {
     mutate(data);
@@ -71,10 +72,15 @@ const EditCategoryModal = ({ category }: { category: Category }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-4"
-        >
+        {isPending ? (
+          <div className="flex h-32 items-center justify-center">
+            <Loader size="sm" />
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-4 flex flex-col gap-4"
+          >
           <div className="flex flex-col">
             <label className="font-inter font-semibold">Title *</label>
             <input
@@ -130,13 +136,15 @@ const EditCategoryModal = ({ category }: { category: Category }) => {
             <DialogClose asChild>
               <Button
                 onClick={handleSubmit(onSubmit)}
-                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1"
+                disabled={isPending}
+                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
               >
-                Save
+                {isPending ? "Saving..." : "Save"}
               </Button>
             </DialogClose>
           </DialogFooter>
         </form>
+        )}
       </DialogContent>
     </Dialog>
   );

@@ -7,11 +7,6 @@ export const themeState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const isLoadingState = atom<boolean>({
-  key: "isLoading",
-  default: false,
-});
-
 export const authState = atom<boolean | null>({
   key: "auth",
   default: null,

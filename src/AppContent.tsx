@@ -11,6 +11,7 @@ import { useAuth } from "./hooks/useAuth";
 
 //Components
 import Loader from "./components/Loader";
+import CategoryView from "./pages/CategoryDetails/CategoryView";
 
 const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
@@ -65,6 +66,7 @@ export default function AppContent() {
           <Route path="/" element={<LandingPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/category/:id" element={<CategoryView />} />
           </Route>
         </Routes>
       </Suspense>

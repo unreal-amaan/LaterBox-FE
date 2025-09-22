@@ -22,6 +22,7 @@ const AddCategoryModal = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<NewCategory>({
     defaultValues: {
@@ -73,66 +74,88 @@ const AddCategoryModal = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="mt-4 flex flex-col gap-4"
           >
-          <div className="flex flex-col">
-            <label className="font-inter font-semibold">Title *</label>
-            <input
-              {...register("title", { required: true, maxLength: 25 })}
-              className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
-              placeholder="Category title"
-            />
-            {errors.title && (
-              <span className="font-work-sans text-sm text-red-500">
-                Title is required (max 25 chars)
-              </span>
-            )}
-          </div>
+            <div className="flex flex-col">
+              <label className="font-inter font-semibold">Title *</label>
+              <input
+                {...register("title", { required: true })}
+                maxLength={25}
+                onInput={(e) => {
+                  const input = e.currentTarget;
+                  if (input.value.length >= 25) {
+                    input.value = input.value.slice(0, 25);
+                  }
+                }}
+                className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
+                placeholder="Category title"
+              />
+              <p className="font-work-sans text-sm text-gray-500">
+                {`${watch("title")?.length || 0}/25 characters`}
+              </p>
+              {errors.title && (
+                <span className="font-work-sans text-sm text-red-500">
+                  Title is required
+                </span>
+              )}
+            </div>
 
-          <div className="flex flex-col">
-            <label className="font-inter font-semibold">
-              Description
-              <span className="text-sm font-normal opacity-70">(optional)</span>
-            </label>
-            <textarea
-              {...register("description", { maxLength: 150 })}
-              className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
-              placeholder="Brief description of the category"
-            />
-            {errors.description && (
-              <span className="font-work-sans text-sm text-red-500">
-                Max 150 characters
-              </span>
-            )}
-          </div>
+            <div className="flex flex-col">
+              <label className="font-inter font-semibold">
+                Description
+                <span className="text-sm font-normal opacity-70">
+                  (optional)
+                </span>
+              </label>
+              <textarea
+                {...register("description")}
+                maxLength={150}
+                onInput={(e) => {
+                  const input = e.currentTarget;
+                  if (input.value.length >= 150) {
+                    input.value = input.value.slice(0, 150);
+                  }
+                }}
+                className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
+                placeholder="Brief description of the category"
+              />
+              <p className="font-work-sans text-sm text-gray-500">
+                {`${watch("description")?.length || 0}/150 characters`}
+              </p>
+              {errors.description && (
+                <span className="font-work-sans text-sm text-red-500">
+                  Max 150 characters
+                </span>
+              )}
+            </div>
 
-          <div className="flex items-center gap-4">
-            <label className="font-inter flex items-center gap-2 font-semibold">
-              <input type="checkbox" {...register("isPublic")} />
-              Public
-            </label>
-            <label className="font-inter flex items-center gap-2 font-semibold">
-              <input type="checkbox" {...register("isPinned")} />
-              Pin
-            </label>
-          </div>
-          <DialogFooter className="font-inter text-md font-semibold">
-            <DialogClose asChild>
+            <div className="flex items-center gap-4">
+              <label className="font-inter flex items-center gap-2 font-semibold">
+                <input type="checkbox" {...register("isPublic")} />
+                Public
+              </label>
+              <label className="font-inter flex items-center gap-2 font-semibold">
+                <input type="checkbox" {...register("isPinned")} />
+                Pin
+              </label>
+            </div>
+            <DialogFooter className="font-inter text-md font-semibold">
+              <DialogClose asChild>
+                <Button
+                  variant="outline"
+                  onClick={() => reset()}
+                  className="bg-light/50 hover:accent/50 dark:border-primary dark:bg-secondary dark:hover:bg-primary/50 cursor-pointer border-2"
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
               <Button
-                variant="outline"
-                onClick={() => reset()}
-                className="bg-light/50 hover:accent/50 cursor-pointer border-2 dark:border-primary dark:bg-secondary dark:hover:bg-primary/50"
+                type="submit"
+                disabled={isPending}
+                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
               >
-                Cancel
+                {isPending ? "Adding..." : "Add"}
               </Button>
-            </DialogClose>
-            <Button
-              type="submit"
-              disabled={isPending}
-              className="bg-secondary hover:bg-primary text-light cursor-pointer border-1 border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent disabled:opacity-50"
-            >
-              {isPending ? "Adding..." : "Add"}
-            </Button>
-          </DialogFooter>
-        </form>
+            </DialogFooter>
+          </form>
         )}
       </DialogContent>
     </Dialog>

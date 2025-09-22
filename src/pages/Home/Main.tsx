@@ -52,10 +52,10 @@ const Main = () => {
       </h2>
       {pinned.length > 0 ? (
         <div className="mb-10">
-          <div className="columns-1 gap-6 sm:columns-2 lg:columns-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
             {pinned.map((category) => (
               <div key={category.id} className="mb-6 break-inside-avoid">
-                <Card category={category} />
+                <Card category={category}/>
               </div>
             ))}
           </div>
@@ -73,7 +73,7 @@ const Main = () => {
       </h2>
       {unpinned.length > 0 ? (
         <div>
-          <div className="columns-1 gap-6 sm:columns-2 lg:columns-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {unpinned.map((category) => (
               <div key={category.id} className="mb-6 break-inside-avoid">
                 <Card category={category} />

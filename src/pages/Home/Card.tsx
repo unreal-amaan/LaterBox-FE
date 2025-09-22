@@ -27,7 +27,8 @@ const Card = ({ category }: { category: Category }) => {
   };
 
   return (
-    <div className="card-hover hover:card-hover border-l-secondary dark:border-l-accent/80 bg-light/50 dark:bg-secondary theme-transition text-secondary dark:text-accent rounded-lg border-l-5 px-6 py-8 shadow-lg">
+    <div className="card-hover hover:card-hover border-l-secondary dark:border-l-accent/80 bg-light/50 dark:bg-secondary theme-transition text-secondary dark:text-accent flex h-full w-full flex-col rounded-lg border-l-5 p-6 shadow-lg">
+      {/* Top section */}
       <div className="mb-4 flex items-center justify-between space-x-2">
         <h2 className="font-sora max-w-[70%] space-y-4 text-xl font-medium break-words">
           <span>{category.title}</span>
@@ -46,24 +47,31 @@ const Card = ({ category }: { category: Category }) => {
           <DeleteCategoryModal category={category} />
         </div>
       </div>
-      {category.description && (
-        <p className="font-work-sans dark:text-accent mt-6 min-h-[48px] text-sm break-words">
-          {category.description}
-        </p>
-      )}
-      <div className="font-inter mb-6 flex items-center justify-between">
-        <p className="flex items-center space-x-4">
-          <span className="text-3xl font-bold">{category.count}</span>
-          <span className="text-md dark:text-accent/80">items</span>
-        </p>
-        <p className="font-work-sans dark:text-accent/70 space-x-2">
-          <span className="">created on :</span>
-          <span>{formatDate(category.created_at)}</span>
-        </p>
+
+      {/* Flexible middle (description) */}
+      <div className="flex-grow">
+        {category.description && (
+          <p className="font-work-sans dark:text-accent text-sm break-words">
+            {category.description}
+          </p>
+        )}
       </div>
-      <div>
+
+      {/* Bottom fixed section */}
+      <div className="mt-6">
+        <div className="font-inter mb-4 flex items-center justify-between">
+          <p className="flex items-center space-x-4">
+            <span className="text-3xl font-bold">{category.count}</span>
+            <span className="text-md dark:text-accent/80">items</span>
+          </p>
+          <p className="font-work-sans dark:text-accent/70 space-x-2">
+            <span>created on :</span>
+            <span>{formatDate(category.created_at)}</span>
+          </p>
+        </div>
         <Link
           to={`/category/${category.id}`}
+          target="_blank"
           className="bg-accent dark:bg-muted text-secondary dark:text-accent hover:bg-secondary dark:hover:bg-accent/30 hover:text-accent block w-full cursor-pointer rounded-lg py-2 text-center font-semibold"
         >
           View Collection

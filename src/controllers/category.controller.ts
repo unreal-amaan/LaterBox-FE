@@ -1,7 +1,7 @@
 import { api } from "../api/api";
 import { type Category, type NewCategory, type UpdateCategory } from "../types";
 class CategoryController {
-  static async getCategories() {
+  static async getCategories(): Promise<Category[]> {
     const response = await api.get<Category[]>("/category/get");
     return response.data;
   }

@@ -12,6 +12,7 @@ import { useAuth } from "./hooks/useAuth";
 //Components
 import Loader from "./components/Loader";
 import CategoryView from "./pages/CategoryDetails/CategoryView";
+import Layout from "./pages/Layout/Layout";
 
 const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
@@ -24,7 +25,7 @@ export default function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const { checkAuth } = useAuth();
-  
+
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -46,7 +47,7 @@ export default function AppContent() {
 
   if (isAuthenticated === null) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-gradient-light dark:bg-gradient-dark">
+      <div className="bg-gradient-light dark:bg-gradient-dark flex h-screen w-screen items-center justify-center">
         <Loader fullScreen />
       </div>
     );
@@ -54,19 +55,15 @@ export default function AppContent() {
 
   return (
     <div className="h-screen w-screen">
-      <Suspense
-        fallback={
-          <div className="bg-gradient-light dark:bg-gradient-dark flex h-screen w-screen items-center justify-center">
-            <Loader fullScreen />
-          </div>
-        }
-      >
+      <Suspense>
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<LandingPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/category/:id" element={<CategoryView />} />
+            <Route element={<Layout />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/category/:id" element={<CategoryView />} />
+            </Route>
           </Route>
         </Routes>
       </Suspense>

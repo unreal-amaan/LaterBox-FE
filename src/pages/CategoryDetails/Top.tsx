@@ -1,9 +1,7 @@
 import { lazy } from "react";
-import AutoComplete from "../../components/AutoComplete";
 
-const AddCategoryModal = lazy(
-  () => import("./categoryModals/addModal"),
-);
+const AddLinkModal = lazy(() => import("./LinkModals/addLinkModal"));
+const AutoComplete = lazy(() => import("../../components/AutoComplete"));
 
 interface TopProps {
   options: { label: string; value: string }[];
@@ -15,9 +13,9 @@ const Top = ({ options }: TopProps) => {
       <AutoComplete
         options={options}
         onChange={(value) => console.log(value)}
-        type="category"
+        type="link"
       />
-      <AddCategoryModal />
+      <AddLinkModal/>
     </div>
   );
 };

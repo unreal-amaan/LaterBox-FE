@@ -3,6 +3,7 @@ import { HiSearch } from "react-icons/hi";
 import useAutoComplete from "../hooks/useAutoComplete";
 import { suggestions, selectedIndex } from "../context/autoComplete.context";
 import type { Option } from "../context/autoComplete.context";
+import { useNavigate } from "react-router-dom";
 type AutoCompleteProps = {
   options: Option[];
   onChange: (value: Option) => void;
@@ -27,7 +28,7 @@ export default function AutoComplete({
       }
     },
   });
-
+  const navigate = useNavigate();
   const suggestedOptions = useRecoilValue(suggestions);
   const index = useRecoilValue(selectedIndex);
 
@@ -56,7 +57,7 @@ export default function AutoComplete({
               {...bindOption}
               onClick={() => {
                 if (type === "category") {
-                  window.open(`/category/${s.value}`, "_blank");
+                 navigate(`/category/${s.value}`);
                   clearInput();
                 } else {
                   onChange(s);

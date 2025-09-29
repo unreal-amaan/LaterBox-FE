@@ -1,15 +1,8 @@
-import { Link } from "react-router-dom";
+import type { Link } from "@/types";
 import { lazy } from "react";
 
-const EditCategoryModal = lazy(
-  () => import("./categoryModals/editModal"),
-);
-const ShareModal = lazy(() => import("./categoryModals/shareModal"));
-const DeleteCategoryModal = lazy(
-  () => import("./categoryModals/deleteModal"),
-);
-import type { Category } from "../../types";
-const Card = ({ category }: { category: Category }) => {
+const AddLinkModal = lazy(() => import("./LinkModals/addLinkModal"));
+const Card = ({ link }: { link: Link }) => {
   function formatDate(isoDate: string): string {
     const date = new Date(isoDate);
 
@@ -20,20 +13,14 @@ const Card = ({ category }: { category: Category }) => {
     return `${day}-${month}-${year}`;
   }
 
-  const handleShareClick = (e: React.MouseEvent) => {
-    if (!category.isPublic) {
-      e.preventDefault();
-    }
-  };
-
   return (
     <div className="card-hover hover:card-hover border-l-secondary dark:border-l-accent/80 bg-light/50 dark:bg-secondary theme-transition text-secondary dark:text-accent flex h-full w-full flex-col rounded-lg border-l-5 p-6 shadow-lg">
       {/* Top section */}
       <div className="mb-4 flex items-center justify-between space-x-2">
         <h2 className="font-sora max-w-[70%] space-y-4 text-xl font-medium break-words">
-          <span>{category.title}</span>
+          <span>{link.title}</span>
         </h2>
-        <div className="flex flex-shrink-0 items-center space-x-2">
+        {/* <div className="flex flex-shrink-0 items-center space-x-2">
           <EditCategoryModal category={category} />
           <a
             onClick={handleShareClick}
@@ -45,36 +32,36 @@ const Card = ({ category }: { category: Category }) => {
             />
           </a>
           <DeleteCategoryModal category={category} />
-        </div>
+        </div> */}
       </div>
 
       {/* Flexible middle (description) */}
       <div className="flex-grow">
-        {category.description && (
+        {link.note && (
           <p className="font-work-sans dark:text-accent text-sm break-words">
-            {category.description}
+            {link.note}
           </p>
         )}
       </div>
 
       {/* Bottom fixed section */}
       <div className="mt-6">
-        <div className="font-inter mb-4 flex items-center justify-between">
+        {/* <div className="font-inter mb-4 flex items-center justify-between">
           <p className="flex items-center space-x-4">
             <span className="text-3xl font-bold">{category.count}</span>
             <span className="text-md dark:text-accent/80">items</span>
           </p>
           <p className="font-work-sans dark:text-accent/70 space-x-2">
             <span>created on :</span>
-            <span>{formatDate(category.created_at)}</span>
+            <span>{formatDate(link.created_at)}</span>
           </p>
-        </div>
-        <Link
-          to={`/category/${category.id}`}
+        </div> */}
+        <a
+          href={""}
           className="bg-accent dark:bg-muted text-secondary dark:text-accent hover:bg-secondary dark:hover:bg-accent/30 hover:text-accent block w-full cursor-pointer rounded-lg py-2 text-center font-semibold"
         >
-          View Collection
-        </Link>
+          Visit Link
+        </a>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import type { Url } from "url";
+
 export type Category = {
   id: string;
   title: string;
@@ -23,4 +25,14 @@ export type UpdateCategory = {
   description?: string;
   isPinned?: boolean;
   isPublic?: boolean;
+};
+
+export type Link = {
+  id: string;
+  title: string;
+  link: string;
+  note: string | null;
+  isPinned: boolean;
+  tags: string[];
+  created_at: string;
 };

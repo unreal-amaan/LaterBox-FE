@@ -1,42 +1,42 @@
-import { toast } from "sonner";
-
 import Loader from "@/components/Loader";
+import type { Link } from "@/types";
+import { toast } from "sonner";
 import Card from "./Card";
-import type { Category } from "../../types";
+
 const Main = ({
   data,
   isLoading,
   isError,
 }: {
-  data: Category[];
+  data: Link[];
   isLoading: boolean;
   isError: boolean;
-}) => {
-  const pinned: Category[] = data?.filter((c: Category) => c.isPinned) ?? [];
-  const unpinned: Category[] = data?.filter((c: Category) => !c.isPinned) ?? [];
-
-  if (isLoading)
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <Loader />
-      </div>
-    );
-  if (isError)
-    return toast.error("Failed to load categories.", {
-      style: { background: "#ef4444" },
-    });
-
-  if (!data?.length)
+    }) => {
+    const pinned: Link[] = data?.filter((c: Link) => c.isPinned) ?? [];
+    const unpinned: Link[] = data?.filter((c: Link) => !c.isPinned) ?? [];
+    if (isLoading) {
+        return (
+          <div className="flex h-[60vh] items-center justify-center">
+            <Loader />
+          </div>
+        );
+    }
+    if (isError) {
+        return toast.error("Failed to load links.", {
+          style: { background: "#ef4444" },
+        });
+    }
+    if (!data?.length) {
     return (
       <div className="py-6">
         <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
           <span className="font-sora dark:text-accent text-secondary text-2xl font-semibold">
-            No Categories Found
+            No Links Created Yet
           </span>
         </div>
       </div>
-    );
-
+    );        
+    }
   return (
     <div className="py-6">
       <h2 className="font-sora dark:text-accent text-secondary mb-4 text-xl font-semibold">
@@ -45,9 +45,9 @@ const Main = ({
       {pinned.length > 0 ? (
         <div className="mb-10">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {pinned.map((category) => (
-              <div key={category.id} className="mb-6 break-inside-avoid">
-                <Card category={category} />
+            {pinned.map((link) => (
+              <div key={link.id} className="mb-6 break-inside-avoid">
+                <Card link={link} />
               </div>
             ))}
           </div>
@@ -66,9 +66,9 @@ const Main = ({
       {unpinned.length > 0 ? (
         <div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {unpinned.map((category) => (
-              <div key={category.id} className="mb-6 break-inside-avoid">
-                <Card category={category} />
+            {unpinned.map((link) => (
+              <div key={link.id} className="mb-6 break-inside-avoid">
+                <Card link={link} />
               </div>
             ))}
           </div>

@@ -18,24 +18,24 @@ export const useLinks = (categoryId: string) => {
   });
 
   const addLink = useMutation({
-    mutationKey: ["addLink"],
+    mutationKey: ["addLink", categoryId],
     mutationFn: LinkController.addLink,
     retry: 0,
     onSuccess: (newLink) => {
-      toast.success("Category added successfully", {
+      toast.success("Link added successfully", {
         style: {
           background: "#22c55e",
         },
       });
 
-      queryClient.setQueryData<Link[]>(["categories"], (oldCategories) => {
-        return oldCategories ? [newLink, ...oldCategories] : [newLink];
+      queryClient.setQueryData<Link[]>(["links"], (oldLinks) => {
+        return oldLinks ? [newLink, ...oldLinks] : [newLink];
       });
 
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["links"] });
     },
     onError: () => {
-      toast.error("Failed to add category", {
+      toast.error("Failed to add Link", {
         style: {
           background: "#ef4444",
         },
@@ -43,65 +43,58 @@ export const useLinks = (categoryId: string) => {
     },
   });
 
-//   const deleteCategory = useMutation({
-//     mutationKey: ["deleteCategory"],
-//     mutationFn: CategoryController.deleteCategory,
-//     onSuccess: ({ id }) => {
-//       toast.success("Category deleted successfully", {
-//         style: {
-//           background: "#22c55e",
-//         },
-//       });
+  const deleteLink = useMutation({
+    mutationKey: ["deleteLink", categoryId],
+    mutationFn: LinkController.deleteLink,
+    onSuccess: ({ id }) => {
+      toast.success("Link deleted successfully", {
+        style: {
+          background: "#22c55e",
+        },
+      });
 
-//       queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
-//         return oldCategories ? oldCategories.filter((c) => c.id !== id) : [];
-//       });
+      queryClient.setQueryData<Link[]>(["links", categoryId], (oldLinks) =>
+        oldLinks ? oldLinks.filter((link) => link.id !== id) : [],
+      );
 
-//       queryClient.invalidateQueries({ queryKey: ["categories"] });
-//     },
-//     onError: () => {
-//       toast.error("Failed to delete category", {
-//         style: {
-//           background: "#ef4444",
-//         },
-//       });
-//     },
-//   });
+      queryClient.invalidateQueries({ queryKey: ["links"] });
+    },
+    onError: () => {
+      toast.error("Failed to delete Link", {
+        style: {
+          background: "#ef4444",
+        },
+      });
+    },
+  });
 
-//   const updateCategory = useMutation({
-//     mutationKey: ["updateCategory"],
-//     mutationFn: CategoryController.updateCategory,
-//     onSuccess: (updatedCategory) => {
-//       toast.success("Category updated successfully", {
-//         style: {
-//           background: "#22c55e",
-//         },
-//       });
+  const updateLink = useMutation({
+    mutationKey: ["updateLink", categoryId],
+    mutationFn: LinkController.updateLink,
+    onSuccess: (updatedLink) => {
+      toast.success("Link updated successfully", {
+        style: { background: "#22c55e" },
+      });
 
-//       queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
-//         return oldCategories?.map((c) => {
-//           if (c.id === updatedCategory.id) {
-//             return updatedCategory;
-//           }
-//           return c;
-//         });
-//       });
+      queryClient.setQueryData<Link[]>(["links"], (oldLinks) => {
+        return oldLinks?.map((link) =>
+          link.id === updatedLink.id ? updatedLink : link,
+        );
+      });
 
-//       queryClient.invalidateQueries({ queryKey: ["categories"] });
-//     },
-//     onError: () => {
-//       toast.error("Failed to update category", {
-//         style: {
-//           background: "#ef4444",
-//         },
-//       });
-//     },
-//   });
+      queryClient.invalidateQueries({ queryKey: ["links"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.error ?? "Failed to update link", {
+        style: { background: "#ef4444" },
+      });
+    },
+  });
 
   return {
     getLinks,
-    // addCategory,
-    // deleteCategory,
-    // updateCategory,
+    addLink,
+    deleteLink,
+    updateLink,
   };
 };

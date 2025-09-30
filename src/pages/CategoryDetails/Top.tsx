@@ -5,9 +5,10 @@ const AutoComplete = lazy(() => import("../../components/AutoComplete"));
 
 interface TopProps {
   options: { label: string; value: string }[];
+  categoryId: string;
 }
 
-const Top = ({ options }: TopProps) => {
+const Top = ({ options, categoryId }: TopProps) => {
   return (
     <div className="flex items-center justify-between">
       <AutoComplete
@@ -15,7 +16,7 @@ const Top = ({ options }: TopProps) => {
         onChange={(value) => console.log(value)}
         type="link"
       />
-      <AddLinkModal/>
+      <AddLinkModal categoryId={categoryId} />
     </div>
   );
 };

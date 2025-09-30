@@ -12,16 +12,16 @@ import {
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/Loader";
 
-import { useCategories } from "@/hooks/useCategories";
 import type { Link } from "@/types";
+import { useLinks } from "@/hooks/useLinks";
 
-const AddLinkModal = () => {
+const AddLinkModal = ({ categoryId }: { categoryId: string }) => {
   const {
     register,
     handleSubmit,
     reset,
     watch,
-    formState: { errors},
+    formState: { errors },
   } = useForm<Link>({
     defaultValues: {
       title: "",
@@ -30,13 +30,25 @@ const AddLinkModal = () => {
       tags: [],
       isPinned: false,
     },
-  }); 
+  });
 
-  const { addCategory } = useCategories();
-  const { mutate, isPending } = addCategory;
+  const { addLink } = useLinks(categoryId);
+  const { mutate, isPending } = addLink;
+
+  const parseTags = (tags: string): string[] => {
+    return tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 0);
+  }
+
+
   const onSubmit = (data: Link) => {
     const date = new Date();
     data.created_at = date.toISOString();
+    data.tags = parseTags(data.tags as unknown as string);
+    data.categoryId = categoryId;
+    console.table(data);
     mutate(data);
     reset();
   };
@@ -91,7 +103,7 @@ const AddLinkModal = () => {
                 {`${watch("title")?.length || 0}/25 characters`}
               </p>
               {errors.title && (
-                  <span className="font-work-sans text-sm text-red-500">
+                <span className="font-work-sans text-sm text-red-500">
                   Title is required
                 </span>
               )}
@@ -100,12 +112,12 @@ const AddLinkModal = () => {
                 {...register("link", { required: true })}
                 className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
                 placeholder="https://example.com"
-                />
-                {errors.link && (
-                    <span className="font-work-sans text-sm text-red-500">
-                    URL is required
-                  </span>
-                )}
+              />
+              {errors.link && (
+                <span className="font-work-sans text-sm text-red-500">
+                  URL is required
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -135,33 +147,26 @@ const AddLinkModal = () => {
                   Max 150 characters
                 </span>
               )}
-              </div>
-              
+            </div>
+
             <div className="flex flex-col">
               <label className="font-inter font-semibold">
-                Note
+                Tags *
                 <span className="text-sm font-normal opacity-70">
-                  (optional)
+                  (comma separated)
                 </span>
               </label>
               <textarea
-                {...register("note")}
-                maxLength={150}
-                onInput={(e) => {
-                  const input = e.currentTarget;
-                  if (input.value.length >= 150) {
-                    input.value = input.value.slice(0, 150);
-                  }
-                }}
+                {...register("tags")}
                 className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
-                placeholder="Brief description of the category"
+                placeholder="e.g. tech, productivity, finance"
               />
               <p className="font-work-sans text-sm text-gray-500">
-                {`${watch("note")?.length || 0}/150 characters`}
+                Separate multiple tags with commas
               </p>
-              {errors.note && (
+              {errors.tags && (
                 <span className="font-work-sans text-sm text-red-500">
-                  Max 150 characters
+                  Please enter valid tags
                 </span>
               )}
             </div>

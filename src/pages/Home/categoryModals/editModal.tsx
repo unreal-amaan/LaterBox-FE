@@ -156,15 +156,13 @@ const EditCategoryModal = ({ category }: { category: Category }) => {
                   Cancel
                 </Button>
               </DialogClose>
-              <DialogClose asChild>
-                <Button
-                  onClick={handleSubmit(onSubmit)}
-                  disabled={isPending}
-                  className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
-                >
-                  {isPending ? "Saving..." : "Save"}
-                </Button>
-              </DialogClose>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                disabled={isPending}
+                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
+              >
+                {isPending ? "Saving..." : "Save"}
+              </Button>
             </DialogFooter>
           </form>
         )}

@@ -1,7 +1,7 @@
 import type { Link } from "@/types";
-import { lazy } from "react";
+import EditLinkModal from "./LinkModals/editLinkModal";
+import DeleteLinkModal from "./LinkModals/deleteLinkModal";
 
-const AddLinkModal = lazy(() => import("./LinkModals/addLinkModal"));
 const Card = ({ link }: { link: Link }) => {
   function formatDate(isoDate: string): string {
     const date = new Date(isoDate);
@@ -10,7 +10,7 @@ const Card = ({ link }: { link: Link }) => {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
-    return `${day}-${month}-${year}`;
+    return `${day}/${month}/${year}`;
   }
 
   return (
@@ -20,22 +20,12 @@ const Card = ({ link }: { link: Link }) => {
         <h2 className="font-sora max-w-[70%] space-y-4 text-xl font-medium break-words">
           <span>{link.title}</span>
         </h2>
-        {/* <div className="flex flex-shrink-0 items-center space-x-2">
-          <EditCategoryModal category={category} />
-          <a
-            onClick={handleShareClick}
-            style={{ cursor: category.isPublic ? "pointer" : "not-allowed" }}
-          >
-            <ShareModal
-              isPublic={category.isPublic}
-              link={category.shareLink ?? ""}
-            />
-          </a>
-          <DeleteCategoryModal category={category} />
-        </div> */}
+        <div className="flex flex-shrink-0 items-center space-x-2">
+          <EditLinkModal link={link} />
+          <DeleteLinkModal link={link} />
+        </div>
       </div>
 
-      {/* Flexible middle (description) */}
       <div className="flex-grow">
         {link.note && (
           <p className="font-work-sans dark:text-accent text-sm break-words">
@@ -44,20 +34,16 @@ const Card = ({ link }: { link: Link }) => {
         )}
       </div>
 
-      {/* Bottom fixed section */}
       <div className="mt-6">
-        {/* <div className="font-inter mb-4 flex items-center justify-between">
-          <p className="flex items-center space-x-4">
-            <span className="text-3xl font-bold">{category.count}</span>
-            <span className="text-md dark:text-accent/80">items</span>
-          </p>
+        <div className="font-inter mb-4 flex items-center justify-end">
           <p className="font-work-sans dark:text-accent/70 space-x-2">
             <span>created on :</span>
             <span>{formatDate(link.created_at)}</span>
           </p>
-        </div> */}
+        </div>
         <a
-          href={""}
+          href={link.link}
+          target="_blank"
           className="bg-accent dark:bg-muted text-secondary dark:text-accent hover:bg-secondary dark:hover:bg-accent/30 hover:text-accent block w-full cursor-pointer rounded-lg py-2 text-center font-semibold"
         >
           Visit Link

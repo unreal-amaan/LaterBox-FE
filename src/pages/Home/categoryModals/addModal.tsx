@@ -15,8 +15,6 @@ import Loader from "@/components/Loader";
 import { useCategories } from "@/hooks/useCategories";
 import type { NewCategory } from "@/types";
 
-
-
 const AddCategoryModal = () => {
   const {
     register,
@@ -33,13 +31,13 @@ const AddCategoryModal = () => {
     },
   });
 
-    const { addCategory } = useCategories();
-    const { mutate, isPending } = addCategory;
-    const onSubmit = (data: NewCategory) => {
-        const date = new Date();
-        data.created_at = date.toISOString();
-        mutate(data);
-        reset();
+  const { addCategory } = useCategories();
+  const { mutate, isPending } = addCategory;
+  const onSubmit = (data: NewCategory) => {
+    const date = new Date();
+    data.created_at = date.toISOString();
+    mutate(data);
+    reset();
   };
 
   return (
@@ -147,13 +145,13 @@ const AddCategoryModal = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button
-                type="submit"
-                disabled={isPending}
-                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
-              >
-                {isPending ? "Adding..." : "Add"}
-              </Button>
+                <Button
+                  onClick={handleSubmit(onSubmit)}
+                  disabled={isPending}
+                  className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
+                >
+                  {isPending ? "Adding..." : "Add"}
+                </Button>
             </DialogFooter>
           </form>
         )}

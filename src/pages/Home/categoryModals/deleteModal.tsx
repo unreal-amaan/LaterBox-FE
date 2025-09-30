@@ -25,10 +25,7 @@ const DeleteCategoryModal = ({ category }: { category: Category }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
-          type="button"
-          title="Delete"
-        >
+        <button type="button" title="Delete">
           <MdOutlineDeleteOutline className="icon-hover dark:icon-hover" />
         </button>
       </DialogTrigger>
@@ -52,24 +49,22 @@ const DeleteCategoryModal = ({ category }: { category: Category }) => {
           </div>
         ) : (
           <DialogFooter className="font-inter text-md font-semibold">
-          <DialogClose asChild>
-            <Button
-              variant="outline"
-              className="bg-light/50 hover:bg-accent/50 dark:border-primary dark:bg-secondary dark:hover:bg-primary/50 cursor-pointer border-2"
-            >
-              Cancel
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
+            <DialogClose asChild>
+              <Button
+                variant="outline"
+                className="bg-light/50 hover:bg-accent/50 dark:border-primary dark:bg-secondary dark:hover:bg-primary/50 cursor-pointer border-2"
+              >
+                Cancel
+              </Button>
+            </DialogClose>
             <Button
               onClick={handleDelete}
               disabled={isPending}
-              className="text-light dark:text-light cursor-pointer border-1 border-red-700 bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 disabled:opacity-50"
+              className="text-light dark:text-light cursor-pointer border-1 border-red-700 bg-red-600 hover:bg-red-700 disabled:opacity-50 dark:bg-red-500 dark:hover:bg-red-600"
             >
               {isPending ? "Deleting..." : "Delete"}
             </Button>
-          </DialogClose>
-        </DialogFooter>
+          </DialogFooter>
         )}
       </DialogContent>
     </Dialog>

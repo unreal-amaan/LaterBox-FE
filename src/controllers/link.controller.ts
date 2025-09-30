@@ -1,5 +1,5 @@
 import { api } from "../api/api";
-import { type Link, type NewCategory, type UpdateCategory } from "../types";
+import type { Link, NewCategory, UpdateCategory } from "../types";
 class LinkController {
   static async getLinks(categoryId: string): Promise<Link[]> {
     const response = await api.get<Link[]>(`/link/get/${categoryId}`);
@@ -12,9 +12,7 @@ class LinkController {
   }
 
   static async deleteLink(categoryId: string): Promise<Link> {
-    const response = await api.delete<Link>(
-      `/link/delete/${categoryId}`,
-    );
+    const response = await api.delete<Link>(`/link/delete/${categoryId}`);
     return response.data;
   }
 
@@ -22,10 +20,7 @@ class LinkController {
     id,
     ...categoryData
   }: UpdateCategory): Promise<Link> {
-    const response = await api.put<Link>(
-      `/link/update/${id}`,
-      categoryData,
-    );
+    const response = await api.put<Link>(`/link/update/${id}`, categoryData);
     return response.data;
   }
 }

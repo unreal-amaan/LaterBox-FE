@@ -1,7 +1,10 @@
-import Loader from "@/components/Loader";
-import type { Link } from "@/types";
+import { lazy } from "react";
 import { toast } from "sonner";
-import Card from "./Card";
+
+const Loader = lazy(() => import("@/components/Loader"));
+const Card = lazy(() => import("./Card"));
+
+import type { Link } from "@/types";
 
 const Main = ({
   data,

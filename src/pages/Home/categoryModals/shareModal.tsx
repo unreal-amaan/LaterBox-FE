@@ -24,7 +24,7 @@ type ShareModalProps = {
 const ShareModal = ({ isPublic, link }: ShareModalProps) => {
   const [copied, setCopied] = useState(false);
 
-  const fullLink = `${import.meta.env.VITE_REACT_APP_URL}/category/public/${link}`;
+  const fullLink = `${import.meta.env.VITE_REACT_APP_URL}/share/public/${link}`;
 
   const handleCopy = async () => {
     try {

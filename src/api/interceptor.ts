@@ -14,16 +14,12 @@ api.interceptors.response.use(
 
       try {
         await authApi.post("/auth/refreshtoken");
-        // console.log("Retrying request after auth check");
         return api(originalRequest);
       } catch (err) {
-        // console.error(err);
         try {
           await authApi.post("/auth/signout");
-          // console.log("Logout successful, redirecting to home");
           window.location.href = "/";
         } catch (error) {
-          // console.error("Logout failed:", error);
         }
         return Promise.reject(err);
       }

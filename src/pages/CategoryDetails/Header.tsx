@@ -20,6 +20,7 @@ const Header = ({
           )}
         </h1>
       </div>
+
       <p className="font-work-sans text-primary/80 dark:text-accent w-full text-lg font-medium sm:w-3/4 lg:w-1/2">
         {description}
       </p>

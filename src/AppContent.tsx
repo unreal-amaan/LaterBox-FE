@@ -1,7 +1,6 @@
-import { useRecoilValue } from "recoil";
-import { Routes, Route } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 //Context
 import { themeState, authState } from "./context/global.context";
@@ -10,10 +9,10 @@ import { themeState, authState } from "./context/global.context";
 import { useAuth } from "./hooks/useAuth";
 
 //Components
-import Loader from "./components/Loader";
-import CategoryView from "./pages/CategoryDetails/CategoryView";
-import Layout from "./pages/Layout/Layout";
-
+const Loader = lazy(() => import("./components/Loader"));
+const CategoryView = lazy(() => import("./pages/CategoryDetails/CategoryView"));
+const Layout = lazy(() => import("./pages/Layout/Layout"));
+const Page = lazy(() => import("./pages/public/Page"));
 const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -65,6 +64,7 @@ export default function AppContent() {
               <Route path="/category/:id" element={<CategoryView />} />
             </Route>
           </Route>
+          <Route path="/share/public/:id" element={<Page />} />
         </Routes>
       </Suspense>
     </div>

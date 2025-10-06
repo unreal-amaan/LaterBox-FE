@@ -1,8 +1,10 @@
-import { CgMenuRight } from "react-icons/cg";
-import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+
+import { CgMenuRight } from "react-icons/cg";
 
 import { menuState } from "../../../context/menu.context";
+
 const MobileNav = () => {
   const [menu, setMenu] = useRecoilState(menuState);
   function toggleMenuState() {

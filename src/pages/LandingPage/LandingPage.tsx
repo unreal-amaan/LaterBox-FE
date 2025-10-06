@@ -1,11 +1,15 @@
-import Cta from "./Cta/Cta";
-import Features from "./Features/Features";
-import Hero from "./Hero/Hero";
-import WorkFlow from "./HowItWorks/WorkFlow";
-import Nav from "./Nav/Nav";
-import ProblemStatement from "./ProblemStatement/ProblemStatement";
-import Solution from "./Solution/Solution";
-import Testimonial from "./Testimonial/Testimonial";
+import { lazy } from "react";
+
+const Cta = lazy(() => import("./Cta/Cta"));
+const Features = lazy(() => import("./Features/Features"));
+const Hero = lazy(() => import("./Hero/Hero"));
+const WorkFlow = lazy(() => import("./HowItWorks/WorkFlow"));
+const Nav = lazy(() => import("./Nav/Nav"));
+const ProblemStatement = lazy(
+  () => import("./ProblemStatement/ProblemStatement"),
+);
+const Solution = lazy(() => import("./Solution/Solution"));
+const Testimonial = lazy(() => import("./Testimonial/Testimonial"));
 
 const LandingPage = () => {
   return (
@@ -16,7 +20,7 @@ const LandingPage = () => {
       <Solution />
       <Features />
       <WorkFlow />
-      <Testimonial/>
+      <Testimonial />
       <Cta />
     </div>
   );

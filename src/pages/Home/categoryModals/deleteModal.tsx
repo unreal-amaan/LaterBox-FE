@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,10 +10,13 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import Loader from "@/components/Loader";
+
 import { useCategories } from "@/hooks/useCategories";
 import type { Category } from "@/types";
+
+const Loader = lazy(() => import("@/components/Loader"));
 
 const DeleteCategoryModal = ({ category }: { category: Category }) => {
   const { deleteCategory } = useCategories();

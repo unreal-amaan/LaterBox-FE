@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import CategoryController from "../controllers/category.controller";
-import type { Category } from "@/types";
+import type { Category, SharedCategoryLink } from "@/types";
 
 export const useCategories = () => {
   const queryClient = useQueryClient();
@@ -53,7 +53,7 @@ export const useCategories = () => {
       });
 
       queryClient.setQueryData<Category[]>(["categories"], (oldCategories) => {
-        return oldCategories? oldCategories.filter((c) => c.id !== id) : [];
+        return oldCategories ? oldCategories.filter((c) => c.id !== id) : [];
       });
 
       queryClient.invalidateQueries({ queryKey: ["categories"] });
@@ -97,10 +97,30 @@ export const useCategories = () => {
     },
   });
 
+  const useSharedCategoryLinks = (categoryId?: string) => {
+    return useQuery<SharedCategoryLink, { message: string }>({
+      queryKey: ["sharedCategoryLinks", categoryId],
+      queryFn: async () => {
+        if (!categoryId) throw new Error("Category ID is missing");
+        try {
+          return await CategoryController.getSharedCategoryLinks(categoryId);
+        } catch (err: any) {
+          throw err.response?.data || { message: "Something went wrong" };
+        }
+      },
+      enabled: !!categoryId,
+      staleTime: 1000 * 60 * 10,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: false,
+    });
+  };
+
   return {
     getcategories,
     addCategory,
     deleteCategory,
     updateCategory,
+    useSharedCategoryLinks,
   };
 };

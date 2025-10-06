@@ -1,4 +1,6 @@
-import Step from "./Step";
+import { lazy } from "react";
+
+const Step = lazy(() => import("./Step"));
 
 const steps = [
   {

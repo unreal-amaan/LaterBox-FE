@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -10,11 +11,13 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+
 import { TbEdit } from "react-icons/tb";
-import Loader from "@/components/Loader";
 
 import { useCategories } from "@/hooks/useCategories";
 import type { Category, UpdateCategory } from "@/types";
+
+const Loader = lazy(() => import("@/components/Loader"));
 
 const EditCategoryModal = ({ category }: { category: Category }) => {
   const {

@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import Card from "./Card";
+import { lazy, useMemo } from "react";
+const Card = lazy(() => import("./Card"));
 
 const testimonials = [
   {

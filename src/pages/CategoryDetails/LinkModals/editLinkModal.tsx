@@ -10,7 +10,9 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+
 import { TbEdit } from "react-icons/tb";
+
 import Loader from "@/components/Loader";
 import type { Link, UpdateLink } from "@/types";
 import { useLinks } from "@/hooks/useLinks";
@@ -92,7 +94,6 @@ const EditLinkModal = ({ link }: { link: Link }) => {
             onSubmit={handleSubmit(onSubmit)}
             className="mt-4 flex flex-col gap-4"
           >
-            {/* Title */}
             <div className="flex flex-col">
               <label className="font-inter font-semibold">Title *</label>
               <input
@@ -111,7 +112,6 @@ const EditLinkModal = ({ link }: { link: Link }) => {
               )}
             </div>
 
-            {/* URL */}
             <div className="flex flex-col">
               <label className="font-inter font-semibold">URL *</label>
               <input
@@ -126,7 +126,6 @@ const EditLinkModal = ({ link }: { link: Link }) => {
               )}
             </div>
 
-            {/* Note */}
             <div className="flex flex-col">
               <label className="font-inter font-semibold">
                 Note{" "}
@@ -145,20 +144,18 @@ const EditLinkModal = ({ link }: { link: Link }) => {
               </p>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-col">
               <label className="font-inter font-semibold">Tags *</label>
               <textarea
                 {...register("tags")}
                 maxLength={150}
                 className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
-                placeholder="Brief note"
+                placeholder="e.g. tech, productivity, finance"
               />
               <p className="font-work-sans text-sm text-gray-500">
-                {`${watch("tags")?.length || 0}/150 characters`}
+                Separate multiple tags with commas
               </p>
             </div>
-            {/* Pin */}
             <div className="flex items-center gap-4">
               <label className="font-inter flex items-center gap-2 font-semibold">
                 <input type="checkbox" {...register("isPinned")} />

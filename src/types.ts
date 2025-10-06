@@ -44,3 +44,23 @@ export type UpdateLink = {
   isPinned?: boolean;
   tags?: string[];
 };
+
+export type SharedCategoryLink = {
+  id: string;
+  title: string;
+  created_at: string;
+  description: string | null;
+  isPublic: boolean;
+  user: {
+    name: string;
+    email: string;
+  };
+  savedLinks: {
+    title: string;
+    link: string;
+    note: string | null;
+    created_at: string;
+    isPinned: boolean;
+    tags: string[];
+  }[];
+};

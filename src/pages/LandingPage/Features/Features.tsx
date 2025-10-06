@@ -1,4 +1,6 @@
-import Card from "../../../components/FeatureCard";
+import { lazy } from "react";
+
+const Card = lazy(() => import("../../../components/FeatureCard"));
 
 const cards = [
   {

@@ -1,5 +1,7 @@
-import Nav from "./Nav"
-import { Outlet } from "react-router-dom"
+import { lazy } from "react";
+import { Outlet } from "react-router-dom";
+
+const Nav = lazy(() => import("./Nav"));
 
 const Layout = () => {
   return (
@@ -8,6 +10,6 @@ const Layout = () => {
       <Outlet />
     </div>
   );
-}
+};
 
-export default Layout
+export default Layout;

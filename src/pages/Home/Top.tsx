@@ -1,9 +1,7 @@
 import { lazy } from "react";
-import AutoComplete from "../../components/AutoComplete";
 
-const AddCategoryModal = lazy(
-  () => import("./categoryModals/addModal"),
-);
+const AutoComplete = lazy(() => import("../../components/AutoComplete"));
+const AddCategoryModal = lazy(() => import("./categoryModals/addModal"));
 
 interface TopProps {
   options: { label: string; value: string }[];

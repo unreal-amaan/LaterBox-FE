@@ -14,7 +14,7 @@ const Step = (props: Props) => {
       <h3 className="text-secondary dark:text-light font-inter text-2xl font-semibold">
         {props.title}
       </h3>
-      <div className="flex  items-start ">
+      <div className="flex items-start">
         <p className="text-md dark:text-accent text-primary font-work-sans px-8 text-center">
           {props.description}
         </p>

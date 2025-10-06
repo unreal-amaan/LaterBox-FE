@@ -1,6 +1,9 @@
-import ThemeToggle from "../../components/ThemeToggle";
-import Card from "./Card";
-import Heading from "./Heading";
+import { lazy } from "react";
+
+const ThemeToggle = lazy(() => import("../../components/ThemeToggle"));
+const Card = lazy(() => import("./Card"));
+const Heading = lazy(() => import("./Heading"));
+
 const Signin = () => {
   return (
     <div className="theme-transition bg-gradient-light dark:bg-gradient-dark relative h-screen w-screen">

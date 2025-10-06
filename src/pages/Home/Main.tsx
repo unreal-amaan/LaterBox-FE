@@ -1,7 +1,9 @@
 import { toast } from "sonner";
+import { lazy } from "react";
 
-import Loader from "@/components/Loader";
-import Card from "./Card";
+const Loader = lazy(() => import("@/components/Loader"));
+const Card = lazy(() => import("./Card"));
+
 import type { Category } from "../../types";
 const Main = ({
   data,

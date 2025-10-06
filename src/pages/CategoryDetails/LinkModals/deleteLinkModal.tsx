@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,11 +10,13 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+
 import { MdOutlineDeleteOutline } from "react-icons/md";
+
 import Loader from "@/components/Loader";
+
 import type { Link } from "@/types";
 import { useLinks } from "@/hooks/useLinks";
-import { useState } from "react";
 
 const DeleteLinkModal = ({ link }: { link: Link }) => {
   const { deleteLink } = useLinks(link.categoryId);
@@ -23,7 +26,7 @@ const DeleteLinkModal = ({ link }: { link: Link }) => {
   const handleDelete = () => {
     mutate(link.id, {
       onSuccess: () => {
-        setIsOpen(false); // close the modal only after success
+        setIsOpen(false);
       },
     });
   };

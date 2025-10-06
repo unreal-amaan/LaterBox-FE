@@ -1,9 +1,4 @@
-import EditLinkModal from "./LinkModals/editLinkModal";
-import DeleteLinkModal from "./LinkModals/deleteLinkModal";
-
-import type { Link } from "@/types";
-
-const Card = ({ link }: { link: Link }) => {
+const Card = ({ link }: { link: any }) => {
   function formatDate(isoDate: string): string {
     const date = new Date(isoDate);
 
@@ -20,10 +15,6 @@ const Card = ({ link }: { link: Link }) => {
         <h2 className="font-sora max-w-[70%] space-y-4 text-xl font-medium break-words">
           <span>{link.title}</span>
         </h2>
-        <div className="flex flex-shrink-0 items-center space-x-2">
-          <EditLinkModal link={link} />
-          <DeleteLinkModal link={link} />
-        </div>
       </div>
 
       <div className="flex-grow">
@@ -42,7 +33,7 @@ const Card = ({ link }: { link: Link }) => {
 
       {link.tags && link.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
-          {link.tags.map((tag) => (
+          {link.tags.map((tag: string) => (
             <span
               key={tag}
               className="bg-accent/20 dark:bg-accent/30 text-secondary dark:text-accent rounded-md px-2 py-1 text-sm"

@@ -10,10 +10,10 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/Loader";
 
-import type { Link } from "@/types";
+import Loader from "@/components/Loader";
 import { useLinks } from "@/hooks/useLinks";
+import type { Link } from "@/types";
 
 const AddLinkModal = ({ categoryId }: { categoryId: string }) => {
   const {
@@ -40,8 +40,7 @@ const AddLinkModal = ({ categoryId }: { categoryId: string }) => {
       .split(",")
       .map((tag) => tag.trim())
       .filter((tag) => tag.length > 0);
-  }
-
+  };
 
   const onSubmit = (data: Link) => {
     const date = new Date();
@@ -89,18 +88,18 @@ const AddLinkModal = ({ categoryId }: { categoryId: string }) => {
               <label className="font-inter font-semibold">Title *</label>
               <input
                 {...register("title", { required: true })}
-                maxLength={25}
+                maxLength={50}
                 onInput={(e) => {
                   const input = e.currentTarget;
-                  if (input.value.length >= 25) {
-                    input.value = input.value.slice(0, 25);
+                  if (input.value.length >= 50) {
+                    input.value = input.value.slice(0, 50);
                   }
                 }}
                 className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
                 placeholder="Category title"
               />
               <p className="font-work-sans text-sm text-gray-500">
-                {`${watch("title")?.length || 0}/25 characters`}
+                {`${watch("title")?.length || 0}/50 characters`}
               </p>
               {errors.title && (
                 <span className="font-work-sans text-sm text-red-500">
@@ -158,6 +157,7 @@ const AddLinkModal = ({ categoryId }: { categoryId: string }) => {
               </label>
               <textarea
                 {...register("tags")}
+                maxLength={150}
                 className="bg-light/50 dark:bg-secondary font-inter dark:border-primary rounded-md border p-2"
                 placeholder="e.g. tech, productivity, finance"
               />

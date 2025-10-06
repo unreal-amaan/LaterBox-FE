@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -10,10 +11,11 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/Loader";
 
 import { useCategories } from "@/hooks/useCategories";
 import type { NewCategory } from "@/types";
+
+const Loader = lazy(() => import("@/components/Loader"));
 
 const AddCategoryModal = () => {
   const {
@@ -145,13 +147,13 @@ const AddCategoryModal = () => {
                   Cancel
                 </Button>
               </DialogClose>
-                <Button
-                  onClick={handleSubmit(onSubmit)}
-                  disabled={isPending}
-                  className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
-                >
-                  {isPending ? "Adding..." : "Add"}
-                </Button>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                disabled={isPending}
+                className="bg-secondary hover:bg-primary text-light border-primary dark:bg-light dark:text-secondary dark:hover:bg-accent cursor-pointer border-1 disabled:opacity-50"
+              >
+                {isPending ? "Adding..." : "Add"}
+              </Button>
             </DialogFooter>
           </form>
         )}

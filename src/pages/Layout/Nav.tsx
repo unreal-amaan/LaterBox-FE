@@ -1,6 +1,9 @@
+import { lazy } from "react";
+
 import { LuLogOut } from "react-icons/lu";
 
-import ThemeToggle from "../../components/ThemeToggle";
+const ThemeToggle = lazy(() => import("../../components/ThemeToggle"));
+
 import { useAuth } from "../../hooks/useAuth";
 const Nav = () => {
   const { logout } = useAuth();
@@ -11,11 +14,11 @@ const Nav = () => {
           <div className="flex h-20 items-center justify-between sm:h-22">
             <a href="#" className="flex items-center justify-center space-x-2">
               <div className="bg-secondary dark:bg-light flex h-10 w-10 items-center justify-center rounded-xl shadow-lg sm:rounded-xl">
-                <span className="font-rum-raisin text-light dark:text-primary text-2xl font-extrabold ">
+                <span className="font-rum-raisin text-light dark:text-primary text-2xl font-extrabold">
                   L
                 </span>
               </div>
-              <span className="font-sora text-primary dark:text-light text-2xl font-bold ">
+              <span className="font-sora text-primary dark:text-light text-2xl font-bold">
                 LaterBox
               </span>
             </a>

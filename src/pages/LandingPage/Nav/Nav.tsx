@@ -1,6 +1,8 @@
-import ThemeToggle from "../../../components/ThemeToggle";
-import LargeNav from "./LargeNav";
-import MobileNav from "./MobileNav";
+import { lazy } from "react";
+
+const ThemeToggle = lazy(() => import("../../../components/ThemeToggle"));
+const LargeNav = lazy(() => import("./LargeNav"));
+const MobileNav = lazy(() => import("./MobileNav"));
 
 const Nav = () => {
   return (

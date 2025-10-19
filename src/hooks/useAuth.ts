@@ -19,7 +19,9 @@ export const useAuth = () => {
     try {
       await authApi.post("/auth/signout");
       setAuth(false);
-    } catch (error) {}
+    } catch (error: any) {
+      console.error("Error during sign out:", error);
+    }
   };
 
   return { checkAuth, logout };

@@ -6,11 +6,13 @@ import type { Category, SharedCategoryLink } from "@/types";
 
 export const useCategories = () => {
   const queryClient = useQueryClient();
+  const isPublicPage = window.location.pathname.startsWith("/share/public/");
 
   const getcategories = useQuery({
     queryKey: ["categories"],
     queryFn: CategoryController.getCategories,
     staleTime: 1000 * 60 * 10,
+    enabled: !isPublicPage,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     retry: 0,
@@ -104,8 +106,8 @@ export const useCategories = () => {
         if (!categoryId) throw new Error("Category ID is missing");
         try {
           return await CategoryController.getSharedCategoryLinks(categoryId);
-        } catch (err: any) {
-          throw err.response?.data || { message: "Something went wrong" };
+        } catch (error: any) {
+          throw error.response?.data || { message: "Something went wrong" };
         }
       },
       enabled: !!categoryId,

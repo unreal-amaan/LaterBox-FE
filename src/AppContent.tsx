@@ -7,12 +7,12 @@ import { themeState, authState } from "./context/global.context";
 
 //hooks
 import { useAuth } from "./hooks/useAuth";
+import Page from "./pages/public/Page";
 
 //Components
 const Loader = lazy(() => import("./components/Loader"));
 const CategoryView = lazy(() => import("./pages/CategoryDetails/CategoryView"));
 const Layout = lazy(() => import("./pages/Layout/Layout"));
-const Page = lazy(() => import("./pages/public/Page"));
 const Signin = lazy(() => import("./pages/SignInPage/Signin"));
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -34,8 +34,9 @@ export default function AppContent() {
   }, [theme]);
 
   useEffect(() => {
+    if(location.pathname.startsWith("/share/public/")) return;
     checkAuth();
-  }, []);
+  }, [location.pathname, checkAuth]);
 
   useEffect(() => {
     if (isAuthenticated && location.pathname === "/") {

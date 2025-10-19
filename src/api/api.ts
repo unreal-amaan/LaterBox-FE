@@ -10,4 +10,9 @@ const authApi = axios.create({
     withCredentials: true
 });
 
-export { api, authApi };
+const public_api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: false
+});
+
+export { api, authApi, public_api };

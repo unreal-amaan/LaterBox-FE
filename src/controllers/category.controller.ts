@@ -1,4 +1,4 @@
-import { api } from "../api/api";
+import { api, public_api } from "../api/api";
 import { type Category, type NewCategory, type SharedCategoryLink, type UpdateCategory } from "../types";
 class CategoryController {
   static async getCategories(): Promise<Category[]> {
@@ -31,7 +31,7 @@ class CategoryController {
   static async getSharedCategoryLinks(
     categoryId: string,
   ): Promise<SharedCategoryLink> {
-    const response = await api.get<SharedCategoryLink>(
+    const response = await public_api.get<SharedCategoryLink>(
       `/category/public/${categoryId}`,
     );
     return response.data;

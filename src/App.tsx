@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./api/interceptor";
 const AppContent = lazy(() => import("./AppContent"));
+// import Page from "@/pages/public/Page";
+
 
 export default function App() {
   return (
@@ -21,6 +23,9 @@ export default function App() {
       />
       <Router>
         <AppContent />
+        {/* <Routes>
+          <Route path="/share/public/:id" element={<Page />} />
+        </Routes> */}
       </Router>
     </div>
   );

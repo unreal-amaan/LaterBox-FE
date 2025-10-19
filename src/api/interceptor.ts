@@ -5,6 +5,9 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     console.log("interceptor invoked::", originalRequest.url);
+
+    if(originalRequest.url?.includes("/category/public/")) return Promise.reject(error);
+
     if (
       error.response &&
       error.response.status === 401 &&
@@ -19,7 +22,8 @@ api.interceptors.response.use(
         try {
           await authApi.post("/auth/signout");
           window.location.href = "/";
-        } catch (error) {
+        } catch (signOutErr) {
+          console.error("Error during sign out:", signOutErr);
         }
         return Promise.reject(err);
       }
